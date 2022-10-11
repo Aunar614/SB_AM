@@ -109,5 +109,17 @@ public class UsrArticleController {
 		
 		return id + " 번 게시물을 수정했습니다";
 	}
+	
+	@RequestMapping("/usr/article/getArticleAction")
+	@ResponseBody
+	public Object getArticleAction(int id) {
+		Article article = getArticle(id);
+		
+		if (article == null) {
+			return id + "번 게시물은 존재하지 않습니다";
+		}
+		
+		return article;
+	}
 
 }
