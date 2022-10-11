@@ -30,4 +30,10 @@ public class UsrArticleController {
 		
 		return article;
 	}
+	
+	@RequestMapping("/usr/article/getArticles")
+	@ResponseBody
+	public List<Article> getArticles() {
+		return articles;
+	}
 }
