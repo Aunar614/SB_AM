@@ -45,7 +45,7 @@ public class UsrArticleController {
 		
 		articleService.deleteArticle(id);
 		
-		return id + " 번 게시물을 삭제했습니다";
+		return id + "번 게시물을 삭제했습니다";
 	}
 	
 	@RequestMapping("/usr/article/doModify")
@@ -59,12 +59,12 @@ public class UsrArticleController {
 		
 		articleService.modifyArticle(id, title, body);
 		
-		return id + " 번 게시물을 수정했습니다";
+		return id + "번 게시물을 수정했습니다";
 	}
 	
-	@RequestMapping("/usr/article/getArticleAction")
+	@RequestMapping("/usr/article/getArticle")
 	@ResponseBody
-	public Object getArticleAction(int id) {
+	public Object getArticle(int id) {
 		Article article = articleService.getArticle(id);
 		
 		if (article == null) {
