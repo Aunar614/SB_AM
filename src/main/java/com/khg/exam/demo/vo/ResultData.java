@@ -16,7 +16,7 @@ public class ResultData {
 
 	}
 
-	public static Object from(String resultCode, String msg) {
+	public static ResultData from(String resultCode, String msg) {
 
 		return from(resultCode, msg, null);
 	}
