@@ -30,10 +30,9 @@ public class UsrArticleController {
 		if (Ut.empty(body)) {
 			return ResultData.from("F-2", "내용을 입력해주세요");
 		}
+		
 		ResultData writeArticleRd = articleService.writeArticle(title, body);
-		
 		int id = (int) writeArticleRd.getData1();
-		
 		Article article = articleService.getArticle(id);
 		
 		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
@@ -41,8 +40,10 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/getArticles")
 	@ResponseBody
-	public List<Article> getArticles() {
-		return articleService.getArticles();
+	public ResultData getArticles() {
+		List<Article> articles = articleService.getArticles();
+		
+		return ResultData.from("S-1", "Article List", articles);
 	}
 	
 	@RequestMapping("/usr/article/doDelete")
