@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khg.exam.demo.service.ArticleService;
+import com.khg.exam.demo.util.Ut;
 import com.khg.exam.demo.vo.Article;
+import com.khg.exam.demo.vo.ResultData;
 
 @Controller
 public class UsrArticleController {
@@ -69,10 +71,11 @@ public class UsrArticleController {
 		Article article = articleService.getArticle(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 존재하지 않습니다";
+
+			return ResultData.from("f-1", Ut.f("%d번 게시물은 존재하지 않습니다", id));
 		}
 		
-		return article;
+		return ResultData.from("S-1", Ut.f("%d번 게시물입니다", id), article);
 	}
 
 }
