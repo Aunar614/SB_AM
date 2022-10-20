@@ -18,7 +18,7 @@ public class UsrMemberController {
 	
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
-	public ResultData doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+	public ResultData<Member> doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		
 		if (Ut.empty(loginId)) {
 			return ResultData.from("F-1", "아이디를 입력해주세요");
@@ -48,13 +48,13 @@ public class UsrMemberController {
 		// 회원가입이 완료 되었습니다
 		// F-1~8
 		// 실패
-		ResultData joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		
 		if (joinRd.isFail()) {
-			return joinRd;
+			return (ResultData) joinRd;
 		}
 		
-		Member member = memberService.getMemberById((int)joinRd.getData1());
+		Member member = memberService.getMemberById(joinRd.getData1());
 		
 		return ResultData.newData(joinRd, member);
 	}
