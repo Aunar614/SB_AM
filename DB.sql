@@ -83,3 +83,13 @@ email = 'developKim@gmail.com';
 SELECT * FROM article;
 
 SELECT * FROM `member`;
+
+# 게시물 테이블에 회원번호 칼럼 추가
+ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
+
+UPDATE article
+SET memberId = 2
+WHERE memberId = 0;
+
+SELECT LAST_INSERT_ID();
+
