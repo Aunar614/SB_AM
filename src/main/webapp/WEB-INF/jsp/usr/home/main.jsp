@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>MAIN</title>
+<link rel="stylesheet" href="/resource/common.css" />
+<script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
 	<h1>Main Page</h1>
@@ -22,6 +24,7 @@
 	</header>
 
 	<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione unde soluta saepe ea enim fugit
-		necessitatibus autem non. Fugiat unde a deleniti at facilis eveniet reprehenderit dolore blanditiis iusto repudiandae.</div>
+		necessitatibus autem non. Fugiat unde a deleniti at facilis eveniet reprehenderit dolore blanditiis iusto repudiandae.
+		안녕하세요</div>
 </body>
 </html>
