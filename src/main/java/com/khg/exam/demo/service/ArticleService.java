@@ -22,13 +22,13 @@ public class ArticleService {
 	}
 
 	// 서비스메서드
-	public Article getArticle(int id) {
+	public Article getForPrintArticle(int id) {
 		
-		return articleRepository.getArticle(id);
+		return articleRepository.getForPrintArticle(id);
 		
 	}
 	
-	public List<Article> getArticles() {
+	public List<Article> getForPrintArticles() {
 		
 		return articleRepository.getArticles();
 	}
@@ -50,7 +50,7 @@ public class ArticleService {
 		
 		articleRepository.modifyArticle(id, title, body);
 		
-		Article article = getArticle(id);
+		Article article = getForPrintArticle(id);
 		
 		return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), "article", article);
 	}
