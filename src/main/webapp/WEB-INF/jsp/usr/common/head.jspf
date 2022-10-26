@@ -38,11 +38,20 @@
 						<span>LIST</span>
 					</a>
 				</li>
-				<li class="hover:underline">
-					<a class="h-full flex items-center px-3" href="/usr/member/login">
-						<span>LOGIN</span>
-					</a>
-				</li>
+				<c:if test="${!rq.isLogined()}">
+					<li class="hover:underline">
+						<a class="h-full flex items-center px-3" href="/usr/member/login">
+							<span>LOGIN</span>
+						</a>
+					</li>
+				</c:if>
+				<c:if test="${rq.isLogined()}">
+					<li class="hover:underline">
+						<a class="h-full flex items-center px-3" href="/usr/member/doLogout">
+							<span>LOGOUT</span>
+						</a>
+					</li>
+				</c:if>
 			</ul>
 		</div>
 

@@ -24,9 +24,9 @@
 						</td>
 					</tr>
 					<tr>
-						<th>로그인</th>
+						<th></th>
 						<td>
-							<input type="submit" value="로그인" />
+							<button type="submit">로그인</button>
 						</td>
 					</tr>
 				</tbody>
