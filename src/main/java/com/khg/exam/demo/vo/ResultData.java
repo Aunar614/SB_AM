@@ -1,7 +1,9 @@
 package com.khg.exam.demo.vo;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class ResultData<DT> {
 	// S-1, S-2
 	// F-1, S-2
@@ -13,10 +15,6 @@ public class ResultData<DT> {
 	private DT data1;
 	@Getter
 	private String data1Name;
-
-	private ResultData() {
-
-	}
 
 	public static <DT> ResultData<DT> from(String resultCode, String msg) {
 
