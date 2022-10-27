@@ -23,7 +23,7 @@
 				</thead>
 				<tbody>
 					<c:forEach var="article" items="${articles }">
-						<tr>
+						<tr class="hover">
 							<td>${article.id }</td>
 							<td>${article.regDate.substring(2,16) }</td>
 							<td>

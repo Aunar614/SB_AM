@@ -43,7 +43,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<button type="submit" value="수정">수정</button>
+							<button class="btn btn-ghost" type="submit" value="수정">수정</button>
 						</td>
 
 					</tr>

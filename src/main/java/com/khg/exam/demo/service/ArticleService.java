@@ -38,6 +38,10 @@ public class ArticleService {
 		
 		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
 		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
+
+		ResultData actorCanModifyRd = actorCanModify(actorId, article);
+		article.setExtra__actorCanModify(actorCanModifyRd.isSuccess());
+
 	}
 
 	public List<Article> getForPrintArticles(int actorId) {
@@ -73,7 +77,7 @@ public class ArticleService {
 		return ResultData.from("S-1", Ut.f("%d번 게시물을 수정했습니다", id), "article", article);
 	}
 
-	public ResultData actorCanModfy(int loginedMemberId, Article article) {
+	public ResultData actorCanModify(int loginedMemberId, Article article) {
 
 		if (article.getMemberId() != loginedMemberId) {
 			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다");
