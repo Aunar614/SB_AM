@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khg.exam.demo.servicer.MemberService;
+import com.khg.exam.demo.service.MemberService;
 import com.khg.exam.demo.util.Ut;
 import com.khg.exam.demo.vo.Member;
 import com.khg.exam.demo.vo.ResultData;

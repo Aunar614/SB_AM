@@ -1,4 +1,4 @@
-package com.khg.exam.demo.servicer;
+package com.khg.exam.demo.service;
 
 import org.springframework.stereotype.Service;
 
