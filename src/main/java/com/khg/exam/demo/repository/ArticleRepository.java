@@ -17,7 +17,20 @@ public interface ArticleRepository {
 	
 	public Article getForPrintArticle(int id);
 	
-	public List<Article> getArticles();
+	@Select("""
+			<script>
+			SELECT A.*, M.nickname AS
+			extra__writerName
+			FROM article AS A
+			LEFT JOIN `member` AS M
+			ON A.memberId = M.id WHERE 1
+			<if test="boardId != 0">
+				AND A.boardId = #{boardId}
+			</if>
+			ORDER BY A.id DESC
+			</script>
+			""")
+	public List<Article> getArticles(int boardId);
 	
 	public void deleteArticle(int id);
 	
