@@ -37,8 +37,13 @@
 					</a>
 				</li>
 				<li class="hover:underline">
-					<a class="h-full flex items-center px-3" href="/usr/article/list">
-						<span>LIST</span>
+					<a class="h-full flex items-center px-3" href="/usr/article/list?boardId=1">
+						<span>NOTICE</span>
+					</a>
+				</li>
+				<li class="hover:underline">
+					<a class="h-full flex items-center px-3" href="/usr/article/list?boardId=2">
+						<span>FREE</span>
 					</a>
 				</li>
 				<li class="hover:underline">
