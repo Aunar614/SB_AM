@@ -16,15 +16,33 @@
 						<td>${rq.loginedMember.nickname }</td>
 					</tr>
 					<tr>
+						<th>게시판</th>
+						<td>
+							<select class="select select-bordered" name="boardId">
+								<option disabled>게시판을 선택해주세요</option>
+								<option value="1">공지사항</option>
+								<option value="2">자유게시판</option>
+							</select>
+<!-- 							<label> -->
+<!-- 								공지사항 -->
+<!-- 								<input class="mx-1" type="radio" name="boardId" value="1" /> -->
+<!-- 							</label> -->
+<!-- 							<label> -->
+<!-- 								자유게시판 -->
+<!-- 								<input class="mx-1" type="radio" name="boardId" value="2" /> -->
+<!-- 							</label> -->
+						</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>
-							<input class="w-full" type="text" name="title" placeholder="제목을 입력해주세요"  />
+							<input required="required" class="w-full" type="text" name="title" placeholder="제목을 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea class="w-full" type="text" name="body" placeholder="내용을 입력해주세요"></textarea>
+							<textarea required="required" class="w-full" type="text" name="body" placeholder="내용을 입력해주세요"></textarea>
 						</td>
 					</tr>
 					<tr>
