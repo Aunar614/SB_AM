@@ -133,3 +133,11 @@ SELECT * FROM board;
 
 SELECT LAST_INSERT_ID();
 
+# 게시물 갯수 늘리기
+INSERT INTO article
+(
+	regDate, updateDate, memberId, boardId, title, `body`
+)
+SELECT NOW(), NOW(), FLOOR(RAND() *2) + 2, FLOOR(RAND() *2) + 1, CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
+FROM article;
+
