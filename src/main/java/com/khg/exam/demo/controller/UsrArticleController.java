@@ -75,7 +75,7 @@ public class UsrArticleController {
 		// 한페이지당 10개씩
 		// 글 20개면 --> 2페이지
 		// 글 24개면 --> 3페이지
-		int pagesCount = (int) Math.ceil(articlesCount / itemsInAPage);
+		int pagesCount = (int) Math.ceil((double) articlesCount / itemsInAPage);
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, page,
 				itemsInAPage);
