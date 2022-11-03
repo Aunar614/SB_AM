@@ -35,7 +35,7 @@ public class ArticleService {
 		if (article == null) {
 			return;
 		}
-		
+
 		ResultData actorCanDeleteRd = actorCanDelete(actorId, article);
 		article.setExtra__actorCanDelete(actorCanDeleteRd.isSuccess());
 
@@ -44,20 +44,14 @@ public class ArticleService {
 
 	}
 
-	public List<Article> getForPrintArticles(int actorId, int boardId, int page, int itemsInAPage) {
-		
-		/*
-		 SELECT *
-		 FROM article
-		 WHERE boardID = 1
-		 ORDER BY id DESC
-		 LIMIT 0, 10;
-		 */
-		
+	public List<Article> getForPrintArticles(int actorId, int boardId, int page, int itemsInAPage,
+			String searchKeywordTypeCode, String searchKeyword) {
+
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
-		
-		List<Article> articles = articleRepository.getArticles(boardId, limitStart, limitTake);
+
+		List<Article> articles = articleRepository.getArticles(boardId, limitStart, limitTake, searchKeywordTypeCode,
+				searchKeyword);
 
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
@@ -102,7 +96,7 @@ public class ArticleService {
 		if (article == null) {
 			return ResultData.from("F-1", "게시물이 존재하지 않습니다");
 		}
-		
+
 		if (article.getMemberId() != actorId) {
 			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다");
 		}
