@@ -71,12 +71,20 @@ public class UsrArticleController {
 		int articlesCount = articleService.getArticlesCount(boardId);
 
 		int itemsInAPage = 10;
+		
+		// 한페이지당 10개씩
+		// 글 20개면 --> 2페이지
+		// 글 24개면 --> 3페이지
+		int pagesCount = (int) Math.ceil(articlesCount / itemsInAPage);
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, page,
 				itemsInAPage);
 
 		model.addAttribute("board", board);
+		model.addAttribute("boardId", boardId);
+		model.addAttribute("page", page);
 		model.addAttribute("articlesCount", articlesCount);
+		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";
