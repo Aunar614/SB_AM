@@ -5,14 +5,14 @@
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-	<div>${articlesCount } 개</div>
+		<div>${articlesCount }개</div>
 		<div class="table-box-type-1">
 			<table class="table w-full">
 				<colgroup>
-					<col width="80"/>
-					<col width="140"/>
+					<col width="80" />
+					<col width="140" />
 					<col />
-					<col width="140"/>
+					<col width="140" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -35,6 +35,13 @@
 					</c:forEach>
 				</tbody>
 			</table>
+		</div>
+		<div class="page-menu mt-3 flex justify-center">
+			<div class="btn-group">
+				<c:forEach begin="1" end="10" var="i">
+					<a class="btn btn-sm ${param.page == i ? 'btn-active' : '' }" href="http://localhost:8080/usr/article/list?page=${i }">${i }</a>
+				</c:forEach>
+			</div>
 		</div>
 	</div>
 </section>
