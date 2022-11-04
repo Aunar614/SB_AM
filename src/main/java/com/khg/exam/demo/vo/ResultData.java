@@ -2,8 +2,10 @@ package com.khg.exam.demo.vo;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
+@ToString
 public class ResultData<DT> {
 	// S-1, S-2
 	// F-1, S-2

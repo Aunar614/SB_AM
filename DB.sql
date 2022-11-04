@@ -130,8 +130,12 @@ WHERE id IN (3);
 
 SELECT * FROM board;
 
-
 SELECT LAST_INSERT_ID();
+
+# 게시물 테이블에 조회수
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+DESC article;
 
 # 게시물 갯수 늘리기
 INSERT INTO article
@@ -140,4 +144,3 @@ INSERT INTO article
 )
 SELECT NOW(), NOW(), FLOOR(RAND() *2) + 2, FLOOR(RAND() *2) + 1, CONCAT('제목_',RAND()), CONCAT('내용_',RAND())
 FROM article;
-

@@ -2,8 +2,6 @@ package com.khg.exam.demo.repository;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -12,11 +10,11 @@ import com.khg.exam.demo.vo.Article;
 
 @Mapper
 public interface ArticleRepository {
-	
+
 	public void writeArticle(int memberId, int boardId, String title, String body);
-	
+
 	public Article getForPrintArticle(int id);
-	
+
 	@Select("""
 			<script>
 			SELECT A.*, M.nickname AS
@@ -49,15 +47,15 @@ public interface ArticleRepository {
 			</if>
 			</script>
 			""")
-	public List<Article> getArticles(int boardId, int limitStart, int limitTake,
-			String searchKeywordTypeCode, String searchKeyword);
-	
+	public List<Article> getArticles(int boardId, int limitStart, int limitTake, String searchKeywordTypeCode,
+			String searchKeyword);
+
 	public void deleteArticle(int id);
-	
+
 	public void modifyArticle(int id, String title, String body);
-	
+
 	public int getLastInsertId();
-	
+
 	@Select("""
 			<script>
 			SELECT COUNT(*) AS cnt
@@ -85,5 +83,14 @@ public interface ArticleRepository {
 			</script>
 			""")
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
-	
+
+	@Update("""
+			<script>
+			UPDATE article
+			SET hitCount = hitCount + 1
+			WHERE id = #{id}
+			</script>
+			""")
+	public int increaseHitCount(int id);
+
 }
