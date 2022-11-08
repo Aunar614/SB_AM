@@ -33,6 +33,8 @@
 					<col width="140" />
 					<col />
 					<col width="140" />
+					<col width="50" />
+					<col width="50" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -41,6 +43,7 @@
 						<th>제목</th>
 						<th>작성자</th>
 						<th>조회수</th>
+						<th>추천</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -53,6 +56,7 @@
 							</td>
 							<td>${article.extra__writerName }</td>
 							<td>${article.hitCount }</td>
+							<td>${article.extra__goodReactionPoint }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
