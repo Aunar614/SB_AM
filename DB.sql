@@ -118,6 +118,69 @@ updateDate = NOW(),
 # 게시물 테이블에 boardId 칼럼 추가
 ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER `memberId`;
 
+# reactionPoint 테이블 추가
+CREATE TABLE reactionPoint (
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	memberId INT(10) UNSIGNED NOT NULL,
+	relTypeCode CHAR(50) NOT NULL COMMENT '관련 데이터 타입 코드',
+	relId INT(10) UNSIGNED NOT NULL COMMENT '관련 데이터 번호',
+	`point` SMALLINT(2) NOT NULL
+);
+
+# reactionPoint 테스트 데이터
+# 1번 회원이 1번 article에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# reactionPoint 테스트 데이터
+# 1번 회원이 2번 article에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 1,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# reactionPoint 테스트 데이터
+# 2번 회원이 1번  article에 싫어요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 1,
+`point` = -1;
+
+# reactionPoint 테스트 데이터
+# 2번 회원이 2번 article에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 2,
+relTypeCode = 'article',
+relId = 2,
+`point` = 1;
+
+# reactionPoint 테스트 데이터
+# 3번 회원이 1번 article에 좋아요
+INSERT INTO reactionPoint
+SET regDate = NOW(),
+updateDate = NOW(),
+memberId = 3,
+relTypeCode = 'article',
+relId = 1,
+`point` = 1;
+
+SELECT * FROM reactionPoint;
+
 # 1,2번 게시물을 공지사항 게시물로 수정
 UPDATE article
 SET boardId = 1
