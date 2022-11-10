@@ -38,7 +38,9 @@
 					</tr>
 					<tr>
 						<th>추천</th>
-						<td><span class="badge">${article.extra__goodReactionPoint }</span></td>
+						<td>
+							<span class="badge">${article.extra__goodReactionPoint }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
