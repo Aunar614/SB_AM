@@ -11,25 +11,25 @@
 <script>
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
-		
-		if (localStorage.getItem(localStorageKey)){
+
+		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
-		
+
 		localStorage.setItem(localStorageKey, true);
-		
+
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
-			ajaxMode: 'Y'
+			ajaxMode : 'Y'
 		}, function(data) {
 			$('.article-detail__hit-count').empty().html(data.data1);
 		}, 'json');
 	}
-	
-	$(function(){
+
+	$(function() {
 		// 실전 코드
- 		// ArticleDetail__increaseHitCount();
-		
+		// ArticleDetail__increaseHitCount();
+
 		// 연습코드
 		setTimeout(ArticleDetail__increaseHitCount, 2000);
 	})
@@ -58,14 +58,18 @@
 						<td>${article.updateDate }</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
-						<td>${article.extra__writerName }</td>
-					</tr>
-					<tr>
 						<th>조회수</th>
 						<td>
 							<span class="badge article-detail__hit-count">${article.hitCount }</span>
 						</td>
+					</tr>
+					<tr>
+						<th>작성자</th>
+						<td>${article.extra__writerName }</td>
+					</tr>
+					<tr>
+						<th>추천</th>
+						<td><span class="badge">${article.extra__goodReactionPoint }</span></td>
 					</tr>
 					<tr>
 						<th>제목</th>

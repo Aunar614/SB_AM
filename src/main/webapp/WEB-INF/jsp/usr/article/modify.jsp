@@ -6,7 +6,7 @@
 <section class="mt-8">
 	<div class="container mx-auto px-3">
 		<form class="table-box-type-1" method="POST" action="../article/doModify">
-		<input type="hidden" name="id" value="${article.id }" />
+			<input type="hidden" name="id" value="${article.id }" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
@@ -14,7 +14,9 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${article.id }</td>
+						<td>
+							<span class="badge">${article.id }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
@@ -25,8 +27,18 @@
 						<td>${article.updateDate }</td>
 					</tr>
 					<tr>
+						<th>조회수</th>
+						<td>
+							<span class="badge article-detail__hit-count">${article.hitCount }</span>
+						</td>
+					</tr>
+					<tr>
 						<th>작성자</th>
 						<td>${article.extra__writerName }</td>
+					</tr>
+					<tr>
+						<th>추천</th>
+						<td><span class="badge">${article.extra__goodReactionPoint }</span></td>
 					</tr>
 					<tr>
 						<th>제목</th>

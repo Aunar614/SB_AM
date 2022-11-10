@@ -12,52 +12,69 @@ import com.khg.exam.demo.vo.Article;
 public interface ArticleRepository {
 
 	public void writeArticle(int memberId, int boardId, String title, String body);
-
+	
+	@Select("""
+			<script>
+				SELECT A.*,
+				M.nickname AS extra__writerName,
+				IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+				IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+				IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				LEFT JOIN reactionPoint AS RP
+				ON RP.relTypeCode = 'article'
+				AND A.id = RP.relId
+				WHERE A.id = #{id}
+				GROUP BY A.id
+			</script>
+			""")
 	public Article getForPrintArticle(int id);
 
 	@Select("""
 			<script>
-			SELECT A.*,
-			IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
-			IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS extra__goodReactionPoint,
-			IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
-			FROM (
-					SELECT A.*, M.nickname AS
-					extra__writerName
-					FROM article AS A
-					LEFT JOIN `member` AS M
-					ON A.memberId = M.id WHERE 1
-					<if test="boardId != 0">
-						AND A.boardId = #{boardId}
-					</if>
-					<if test="searchKeyword != ''">
-						<choose>
-							<when test="searchKeywordTypeCode == 'title'">
-								AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
-							</when>
-							<when test="searchKeywordTypeCode == 'body'">
-								AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-							</when>
-							<otherwise>
-								AND (
-									A.title LIKE CONCAT('%', #{searchKeyword}, '%')
-									OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-									)
-							</otherwise>
-						</choose>
-					</if>
-					ORDER BY A.id DESC
-					<if test="limitTake != 0">
-						LIMIT ${limitStart}, #{limitTake}
-					</if> 
-							) AS A
-			LEFT JOIN reactionPoint AS RP
-			ON RP.relTypeCode = 'article'
-			AND A.id = RP.relId
-			GROUP BY A.id
+				SELECT A.*,
+				IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+				IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+				IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
+				FROM (
+						SELECT A.*, M.nickname AS
+						extra__writerName
+						FROM article AS A
+						LEFT JOIN `member` AS M
+						ON A.memberId = M.id WHERE 1
+						<if test="boardId != 0">
+							AND A.boardId = #{boardId}
+						</if>
+						<if test="searchKeyword != ''">
+							<choose>
+								<when test="searchKeywordTypeCode == 'title'">
+									AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<when test="searchKeywordTypeCode == 'body'">
+									AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+								</when>
+								<otherwise>
+									AND (
+										A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+										OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+										)
+								</otherwise>
+							</choose>
+						</if>
+						ORDER BY A.id DESC
+						<if test="limitTake != 0">
+							LIMIT ${limitStart}, #{limitTake}
+						</if> 
+								) AS A
+				LEFT JOIN reactionPoint AS RP
+				ON RP.relTypeCode = 'article'
+				AND A.id = RP.relId
+				GROUP BY A.id
 			</script>
 			""")
-	public List<Article> getArticles(int boardId, int limitStart, int limitTake, String searchKeywordTypeCode,
+	public List<Article> getForPrintArticles(int boardId, int limitStart, int limitTake, String searchKeywordTypeCode,
 			String searchKeyword);
 
 	public void deleteArticle(int id);
