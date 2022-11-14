@@ -71,13 +71,15 @@
 						<th>추천</th>
 						<td>
 							<c:if test="${actorCanMakeReaction }">
-								<button class="btn btn-outline btn-xs">좋아요 👍</button>
+								<a href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id} }"
+									class="btn btn-outline btn-xs">좋아요 👍</a>
 							</c:if>
 							<span>&nbsp;</span>
 							<span class="badge">${article.goodReactionPoint }</span>
 							<span>&nbsp;</span>
 							<c:if test="${actorCanMakeReaction }">
-								<button class="btn btn-outline btn-xs">싫어요 👎</button>
+								<a href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id} }"
+									class="btn btn-outline btn-xs">싫어요 👎</a>
 							</c:if>
 						</td>
 					</tr>
