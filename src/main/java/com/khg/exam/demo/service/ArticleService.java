@@ -50,8 +50,8 @@ public class ArticleService {
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
 
-		List<Article> articles = articleRepository.getForPrintArticles(boardId, limitStart, limitTake, searchKeywordTypeCode,
-				searchKeyword);
+		List<Article> articles = articleRepository.getForPrintArticles(boardId, limitStart, limitTake,
+				searchKeywordTypeCode, searchKeyword);
 
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
@@ -110,19 +110,39 @@ public class ArticleService {
 	}
 
 	public ResultData<Integer> increaseHitCount(int id) {
-		
+
 		int affectedRowsCount = articleRepository.increaseHitCount(id);
-		
+
 		if (affectedRowsCount == 0) {
 			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다", "affectedRowsCount", affectedRowsCount);
 		}
-		
+
 		return ResultData.from("S-1", "조회수 증가", "affectedRowsCount", affectedRowsCount);
 	}
 
 	public int getArticleHitCount(int id) {
-		
+
 		return articleRepository.getArticleHitCount(id);
+	}
+
+	public ResultData increaseGoodReactionPoint(int relId) {
+		int affectedRowsCount = articleRepository.increaseGoodReactionPoint(relId);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다", "affectedRowsCount", affectedRowsCount);
+		}
+
+		return ResultData.from("S-1", "좋아요 증가", "affectedRowsCount", affectedRowsCount);
+	}
+
+	public ResultData increaseBadReactionPoint(int relId) {
+		int affectedRowsCount = articleRepository.increaseBadReactionPoint(relId);
+
+		if (affectedRowsCount == 0) {
+			return ResultData.from("F-1", "해당 게시물이 존재하지 않습니다", "affectedRowsCount", affectedRowsCount);
+		}
+
+		return ResultData.from("S-1", "싫어요 증가", "affectedRowsCount", affectedRowsCount);
 	}
 
 }
