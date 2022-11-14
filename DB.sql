@@ -206,6 +206,19 @@ ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
 
 DESC article;
 
+# 기존 게시물의 goodReactionPoint, badReactionPoint 필드의 값 채워주기
+UPDATE article AS A
+INNER JOIN(
+	SELECT RP.relTypeCode, RP.relId,
+	SUM(IF(RP.point > 0, RP.point, 0)) AS goodReactionPoint,
+	SUM(IF(RP.point < 0, RP.point * -1, 0)) AS badReactionPoint
+	FROM reactionPoint AS RP
+	GROUP BY RP.relTypeCode, RP.relId
+) AS RP_SUM
+ON A.id = RP_SUM.relid
+SET A.goodReactionPoint = RP_SUM.goodreactionPoint,
+A.badReactionPoint = RP_SUM.badreactionPoint;
+
 /*
 # 게시물 갯수 늘리기
 insert into article
@@ -233,15 +246,4 @@ and A.id = RP.relId
 group by A.id
 */
 
-# 기존 게시물의 goodReactionPoint, badReactionPoint 필드의 값 채워주기
-UPDATE article AS A
-INNER JOIN(
-	SELECT RP.relTypeCode, RP.relId,
-	SUM(IF(RP.point > 0, RP.point, 0)) AS goodReactionPoint,
-	SUM(IF(RP.point < 0, RP.point * -1, 0)) AS badReactionPoint
-	FROM reactionPoint AS RP
-	GROUP BY RP.relTypeCode, RP.relId
-) AS RP_SUM
-ON A.id = RP_SUM.relid
-SET A.goodReactionPoint = RP_SUM.goodreactionPoint,
-A.badReactionPoint = RP_SUM.badreactionPoint;
+
