@@ -80,7 +80,7 @@
 							<span>&nbsp;</span>
 							<c:if test="${actorCanMakeReaction }">
 								<a
-									href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.currentUri} "
+									href="/usr/reactionPoint/doBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri} "
 									class="btn btn-outline btn-xs">싫어요 👎</a>
 							</c:if>
 						</td>
