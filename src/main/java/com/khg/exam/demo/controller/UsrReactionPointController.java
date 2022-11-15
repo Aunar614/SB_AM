@@ -20,10 +20,10 @@ public class UsrReactionPointController {
 	@ResponseBody
 	public String doGoodReaction(String relTypeCode, int relId, String replaceUri) {
 
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode,
-				relId);
+		boolean actorCanMakeReaction = reactionPointService
+				.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId).isSuccess();
 
-		if (actorCanMakeReaction = false) {
+		if (actorCanMakeReaction == false) {
 			return rq.jsHistoryBackOnView("이미 처리되었습니다");
 		}
 
@@ -36,10 +36,10 @@ public class UsrReactionPointController {
 	@ResponseBody
 	public String doBadReaction(String relTypeCode, int relId, String replaceUri) {
 
-		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode,
-				relId);
+		boolean actorCanMakeReaction = reactionPointService
+				.actorCanMakeReaction(rq.getLoginedMemberId(), relTypeCode, relId).isSuccess();
 
-		if (actorCanMakeReaction = false) {
+		if (actorCanMakeReaction == false) {
 			return rq.jsHistoryBackOnView("이미 처리되었습니다");
 		}
 
