@@ -174,7 +174,7 @@ public class UsrArticleController {
 			if(sumReactionPointByMemberId > 0) {
 				model.addAttribute("actorCanCancelGoodReaction", true);
 			}else {
-				model.addAttribute("actorCanCancelBadreaction", true);
+				model.addAttribute("actorCanCancelBadReaction", true);
 			}
 		}
 
