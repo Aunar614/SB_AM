@@ -42,7 +42,7 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea required="required" class="w-full" type="text" name="body" placeholder="내용을 입력해주세요"></textarea>
+							<textarea required="required" class="w-full" type="text" name="body" placeholder="내용을 입력해주세요" rows="5"></textarea>
 						</td>
 					</tr>
 					<tr>
@@ -56,8 +56,8 @@
 			</table>
 		</form>
 
-		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+		<div class="btns flex justify-end mt-2">
+			<button class="btn btn-primary btn-xs" type="button" onclick="history.back();">뒤로가기</button>
 		</div>
 	</div>
 </section>

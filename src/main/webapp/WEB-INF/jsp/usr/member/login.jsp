@@ -32,11 +32,11 @@
 				</tbody>
 			</table>
 		</form>
+		<div class="flex justify-end mt-2">
+			<button class="btn btn-xs btn-primary" type="button" onclick="history.back();">뒤로가기</button>
+		</div>
 	</div>
 
-	<div class="btns">
-		<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-	</div>
 </section>
 
 <%@ include file="../common/foot.jspf"%>

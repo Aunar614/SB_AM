@@ -80,6 +80,10 @@ public class Rq {
 
 	}
 
+	public boolean isNotLogined() {
+		return !isLogined;
+	}
+
 	public String jsHistoryBackOnView(String msg) {
 		req.setAttribute("msg", msg);
 		req.setAttribute("historyBack", true);

@@ -118,15 +118,58 @@
 		</div>
 
 		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
-			<c:if test="${article.extra__actorCanModify }">
-				<a class="btn-text-link" href="../article/modify?id=${article.id }">수정</a>
-			</c:if>
-			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link" onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;"
-					href="../article/doDelete?id=${article.id }">삭제</a>
-			</c:if>
+			<div class="mt-2 flex justify-end">
+				<button class="btn btn-xs btn-primary ml-2" type="button" onclick="history.back();">뒤로가기</button>
+				<c:if test="${article.extra__actorCanModify }">
+					<a class="btn btn-xs btn-primary ml-2" href="../article/modify?id=${article.id }">수정</a>
+				</c:if>
+				<c:if test="${article.extra__actorCanDelete }">
+					<a class="btn btn-xs btn-primary ml-2" onclick="if (confirm('정말 삭제하시겠습니까?') == false) return false;"
+						href="../article/doDelete?id=${article.id }">삭제</a>
+				</c:if>
+			</div>
 		</div>
+	</div>
+</section>
+
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<c:if test="${rq.logined }">
+			<h2>댓글 작성</h2>
+			<form class="table-box-type-1 mt-2" method="POST" action="../reply/doWrite">
+				<input type="hidden" name="relTypeCode" value="article" />
+				<input type="hidden" name="relId" value="${article.id }" />
+				<table class="table table-zebra w-full">
+					<colgroup>
+						<col width="200" />
+					</colgroup>
+
+					<tbody>
+						<tr>
+							<th>작성자</th>
+							<td>${rq.loginedMember.nickname }</td>
+						</tr>
+						<tr>
+							<th>내용</th>
+							<td>
+								<textarea required="required" class="textarea textarea-bordered w-full" type="text" name="body"
+									placeholder="댓글을 입력해주세요" rows="2"></textarea>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			<div class="flex mx-auto mt-2 justify-end">
+				<button class="btn btn-xs btn-primary" type="submit" value="댓글작성">댓글 작성</button>
+			</div>
+		</c:if>
+		<c:if test="${rq.notLogined}">
+			<h1>
+				댓글 작성은 "
+				<a class="btn-text-link" href="/usr/member/login">로그인</a>
+				" 후 이용해주세요
+			</h1>
+		</c:if>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
