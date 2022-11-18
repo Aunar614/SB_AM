@@ -265,6 +265,15 @@ relId = 2,
 
 SELECT * FROM reply;
 
+# 댓글 테이블에 goodReactionPoint 칼럼 추가
+ALTER TABLE reply ADD COLUMN goodReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블에 badReactionPoint 칼럼 추가
+ALTER TABLE reply ADD COLUMN badReactionPoint INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+# 댓글 테이블에 인덱스 걸기
+ALTER TABLE `SB_AM`.`reply` ADD INDEX(`relTypeCode`, `relId`);
+
 /*
 # 게시물 갯수 늘리기
 insert into article
