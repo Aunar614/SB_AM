@@ -8,7 +8,7 @@
 		<div class="flex">
 			<div>
 				게시물 갯수 :
-				<span class="badge">${articlesCount } 개</span>
+				<span class="badge badge-md">${articlesCount } 개</span>
 			</div>
 			<div class="flex-grow"></div>
 			<form class="flex">

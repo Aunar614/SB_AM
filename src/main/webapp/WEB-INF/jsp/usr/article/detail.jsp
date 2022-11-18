@@ -38,7 +38,7 @@
 
 <script>
 // 댓글 관련
-	let ReplyWrite__submitFormDone == false;
+	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form) {
 		if (ReplyWrite__submitFormDone) {
 			return;
@@ -74,7 +74,7 @@
 					<tr>
 						<th>번호</th>
 						<td>
-							<span class="badge">${article.id }</span>
+							<span class="badge badge-md">${article.id }</span>
 						</td>
 					</tr>
 					<tr>
@@ -88,7 +88,7 @@
 					<tr>
 						<th>조회수</th>
 						<td>
-							<span class="badge article-detail__hit-count">${article.hitCount }</span>
+							<span class="badge badge-md article-detail__hit-count">${article.hitCount }</span>
 						</td>
 					</tr>
 					<tr>
@@ -114,7 +114,7 @@
 							</c:if>
 							<span>&nbsp;</span>
 
-							<span class="badge">${article.goodReactionPoint }</span>
+							<span class="badge badge-md">${article.goodReactionPoint }</span>
 
 							<span>&nbsp;</span>
 							<c:if test="${actorCanMakeReaction }">
@@ -181,7 +181,7 @@
 						<tr>
 							<th>내용</th>
 							<td>
-								<textarea class="textarea textarea-bordered w-full" type="text" name="body" placeholder="댓글을 입력해주세요" rows="2"></textarea>
+								<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해주세요" rows="2"></textarea>
 							</td>
 						</tr>
 					</tbody>
