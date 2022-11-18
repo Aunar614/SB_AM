@@ -9,7 +9,7 @@
 </script>
 
 <script>
-// 조회수 관련
+	// 조회수 관련
 	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
 
@@ -112,7 +112,7 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.body }</td>
+						<td>${article.getForPrintBody() }</td>
 					</tr>
 				</tbody>
 			</table>
@@ -136,27 +136,27 @@
 <!-- reply section -->
 
 <script>
-// 댓글 관련
+	// 댓글 관련
 	let ReplyWrite__submitFormDone = false;
 	function ReplyWrite__submitForm(form) {
 		if (ReplyWrite__submitFormDone) {
 			return;
 		}
-		
+
 		form.body.value = form.body.value.trim();
-		
+
 		if (form.body.value.length == 0) {
 			alert('댓글을 입력해주세요');
 			form.body.focus();
 			return;
 		}
-		
+
 		if (form.body.value.length < 2) {
 			alert('2글자 이상 입력해주세요');
 			form.body.focus();
 			return;
 		}
-		
+
 		ReplyWrite__submitFormDone = true;
 		form.submit();
 	}
@@ -205,7 +205,38 @@
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<h2>댓글 (${repliesCount })</h2>
+		<h2>댓글 (${replies.size() })</h2>
+
+		<table class="table w-full mt-2">
+			<colgroup>
+				<col width="50" />
+				<col width="100" />
+				<col width="100" />
+				<col width="50" />
+				<col width="140" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>날짜</th>
+					<th>작성자</th>
+					<th>추천</th>
+					<th>내용</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach var="reply" items="${replies }" >
+					<tr class="hover">
+						<td>${reply.id }</td>
+						<td>${reply.regDate }</td>
+						<td>${reply.extra__writerName }</td>
+						<td>${reply.goodReactionPoint }</td>
+						<td>${reply.getForPrintBody() }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
