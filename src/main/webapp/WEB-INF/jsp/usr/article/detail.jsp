@@ -218,30 +218,30 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>날짜</th>
-					<th>작성자</th>
-					<th>추천</th>
-					<th>내용</th>
-					<th>비고</th>
+					<th class="text-center">번호</th>
+					<th class="text-center">날짜</th>
+					<th class="text-center">작성자</th>
+					<th class="text-center">추천</th>
+					<th class="text-center">내용</th>
+					<th class="text-center">비고</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				<c:forEach var="reply" items="${replies }">
+				<c:forEach var="reply" items="${replies }" varStatus="status">
 					<tr class="hover">
-						<td>${reply.id }</td>
-						<td>${reply.forPrintType1RegDate }</td>
-						<td>${reply.extra__writerName }</td>
-						<td>${reply.goodReactionPoint }</td>
+						<td class="text-center">${status.count }</td>
+						<td class="text-center">${reply.forPrintType1RegDate }</td>
+						<td class="text-center">${reply.extra__writerName }</td>
+						<td class="text-center">${reply.goodReactionPoint }</td>
 						<td class="text-left">${reply.getForPrintBody() }</td>
-						<td>
+						<td class="text-center">
 							<c:if test="${reply.extra__actorCanModify }">
-								<a class="btn btn-xs btn-ghost" href="../reply/modify/id=${reply.id }">수정</a>
+								<a class="btn btn-xs btn-ghost" href="../reply/doModify?id=${reply.id }">수정</a>
 								<span> / </span>
 							</c:if>
 							<c:if test="${reply.extra__actorCanDelete }">
-								<a class="btn btn-xs btn-ghost" href="../reply/doDelete/id=${reply.id }"
+								<a class="btn btn-xs btn-ghost" href="../reply/doDelete?id=${reply.id }"
 									onclick="if(comfirm('삭제 하시겠습니까?') == false) return false;">삭제</a>
 							</c:if>
 						</td>
