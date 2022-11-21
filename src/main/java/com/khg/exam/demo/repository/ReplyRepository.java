@@ -42,6 +42,6 @@ public interface ReplyRepository {
 				ORDER BY R.id DESC
 			</script>
 			""")
-	List<Reply> getForPrintReplies(int actorId, String relTypeCode, int relId);
+	List<Reply> getForPrintReplies(String relTypeCode, int relId);
 
 }
