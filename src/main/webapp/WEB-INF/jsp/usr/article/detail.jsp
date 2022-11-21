@@ -183,7 +183,7 @@
 						<tr>
 							<th>내용</th>
 							<td>
-								<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해주세요" rows="2"></textarea>
+								<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해주세요" rows="1"></textarea>
 							</td>
 						</tr>
 					</tbody>
@@ -237,7 +237,7 @@
 						<td class="text-left">${reply.getForPrintBody() }</td>
 						<td class="text-center">
 							<c:if test="${reply.extra__actorCanModify }">
-								<a class="btn btn-xs btn-ghost" href="../reply/doModify?id=${reply.id }">수정</a>
+								<a class="btn btn-xs btn-ghost" href="../reply/modify?id=${reply.id }">수정</a>
 								<span> / </span>
 							</c:if>
 							<c:if test="${reply.extra__actorCanDelete }">

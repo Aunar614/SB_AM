@@ -2,12 +2,14 @@ package com.khg.exam.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khg.exam.demo.service.ReactionPointService;
+import com.khg.exam.demo.service.ArticleService;
 import com.khg.exam.demo.service.ReplyService;
 import com.khg.exam.demo.util.Ut;
+import com.khg.exam.demo.vo.Article;
 import com.khg.exam.demo.vo.Reply;
 import com.khg.exam.demo.vo.ResultData;
 import com.khg.exam.demo.vo.Rq;
@@ -18,6 +20,8 @@ public class UsrReplyController {
 	@Autowired
 	private ReplyService replyService;
 	@Autowired
+	private ArticleService articleService;
+	@Autowired
 	private Rq rq;
 
 	@RequestMapping("/usr/reply/doWrite")
@@ -27,7 +31,7 @@ public class UsrReplyController {
 		if (Ut.empty(relTypeCode)) {
 			return rq.jsHistoryBack("relTypeCode을(를) 입력해주세요");
 		}
-		
+
 		if (Ut.empty(relId)) {
 			return rq.jsHistoryBack("relId을(를) 입력해주세요");
 		}
@@ -37,20 +41,20 @@ public class UsrReplyController {
 		}
 
 		ResultData<Integer> writeReplyRd = replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
-		
+
 		int id = writeReplyRd.getData1();
 
 		if (Ut.empty(replaceUri)) {
-			switch(relTypeCode) {
+			switch (relTypeCode) {
 			case "article":
 				replaceUri = Ut.f("../article/detail?id=%d", relId);
 				break;
 			}
 		}
-		
+
 		return rq.jsReplace(writeReplyRd.getMsg(), replaceUri);
 	}
-	
+
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id, String replaceUri) {
@@ -58,9 +62,9 @@ public class UsrReplyController {
 		if (Ut.empty(id)) {
 			return rq.jsHistoryBack("id가 없습니다");
 		}
-		
+
 		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
-		
+
 		if (reply == null) {
 			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
 		}
@@ -70,16 +74,48 @@ public class UsrReplyController {
 		}
 
 		ResultData deleteReplyRd = replyService.deleteReply(id);
-		
+
 		if (Ut.empty(replaceUri)) {
-			switch(reply.getRelTypeCode()) {
+			switch (reply.getRelTypeCode()) {
 			case "article":
 				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
 				break;
 			}
 		}
-		
+
 		return rq.jsReplace(deleteReplyRd.getMsg(), replaceUri);
+	}
+
+	@RequestMapping("/usr/reply/modify")
+	public String modify(int id, String replaceUri, Model model) {
+
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("id가 없습니다");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글은 존재하지 않습니다", id));
+		}
+
+		if (reply.isExtra__actorCanModify() == false) {
+			return rq.jsHistoryBack("해당 댓글을 수정할 권한이 없습니다");
+		}
+
+		String relDataTitle = null;
+
+		switch (reply.getRelTypeCode()) {
+		case "article":
+			Article article = articleService.getArticle(reply.getRelId());
+			relDataTitle = article.getTitle();
+			break;
+		}
+
+		model.addAttribute("reply", reply);
+		model.addAttribute("relDataTitle", relDataTitle);
+
+		return "usr/reply/modify";
 	}
 
 }

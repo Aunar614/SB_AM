@@ -1,85 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="ARTICLE MODIFY" />
+<c:set var="pageTitle" value="REPLY MODIFY" />
 <%@ include file="../common/head.jspf"%>
 
 <script>
 	// 댓글 관련
-	let ArticleModify__submitDone = false;
-	function ArticleModify__submit(form) {
-		if (ArticleModify__submitDone) {
+	let ReplyModify__submitDone = false;
+	function ReplyModify__submit(form) {
+		if (ReplyModify__submitDone) {
 			return;
 		}
 
 		form.body.value = form.body.value.trim();
 
-		if (form.title.value.length == 0) {
-			alert('제목을 입력해주세요');
-			form.body.focus();
-			return;
-		}
-		
 		if (form.body.value.length == 0) {
 			alert('내용을 입력해주세요');
 			form.body.focus();
 			return;
 		}
 
-		ArticleModify__submitDone = true;
+		ReplyModify__submitDone = true;
 		form.submit();
 	}
 </script>
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../article/doModify"
-			onsubmit="ArticleModify__submit(this); return false">
-			<input type="hidden" name="id" value="${article.id }" />
+		<form class="table-box-type-1" method="POST" action="../reply/doModify"
+			onsubmit="ReplyModify__submit(this); return false">
+			<input type="hidden" name="id" value="${reply.id }" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
 				</colgroup>
 				<tbody>
 					<tr>
+						<th>게시물 번호</th>
+						<td>
+							<span class="badge">${reply.relId }</span>
+						</td>
+					</tr>
+					<tr>
+						<th>게시물 제목</th>
+						<td>
+							<span>${relDataTitle }</span>
+						</td>
+					</tr>
+					<tr>
 						<th>번호</th>
 						<td>
-							<span class="badge">${article.id }</span>
+							<span class="badge">${reply.id }</span>
 						</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
-						<td>${article.regDate }</td>
+						<td>${reply.regDate }</td>
 					</tr>
 					<tr>
 						<th>수정날짜</th>
-						<td>${article.updateDate }</td>
-					</tr>
-					<tr>
-						<th>조회수</th>
-						<td>
-							<span class="badge article-detail__hit-count">${article.hitCount }</span>
-						</td>
+						<td>${reply.updateDate }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>${article.extra__writerName }</td>
+						<td>${reply.extra__writerName }</td>
 					</tr>
 					<tr>
 						<th>추천</th>
 						<td>
-							<span class="badge">${article.goodReactionPoint }</span>
-						</td>
-					</tr>
-					<tr>
-						<th>제목</th>
-						<td>
-							<input class="w-full" type="text" name="title" placeholder="제목을 입력해주세요" value="${article.title }" />
+							<span class="badge">${reply.goodReactionPoint }</span>
 						</td>
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea class="w-full" type="text" name="body" placeholder="내용을 입력해주세요">${article.body }</textarea>
+							<textarea class="w-full" type="text" name="body" placeholder="내용을 입력해주세요">${reply.body }</textarea>
 						</td>
 					</tr>
 					<tr>
