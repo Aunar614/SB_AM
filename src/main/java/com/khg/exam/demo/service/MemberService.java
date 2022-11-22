@@ -1,5 +1,6 @@
 package com.khg.exam.demo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khg.exam.demo.repository.MemberRepository;
@@ -10,31 +11,33 @@ import com.khg.exam.demo.vo.ResultData;
 @Service
 public class MemberService {
 	private MemberRepository memberRepository;
-	
-	public MemberService(MemberRepository memberRepository) {
+	private AttrService attrService;
+
+	public MemberService(AttrService attrService, MemberRepository memberRepository) {
+		this.attrService = attrService;
 		this.memberRepository = memberRepository;
 	}
-		
+
 	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
 		// 로그인아이디 중복 체크
 		Member existsMember = getMemberByLoginId(loginId);
-		
+
 		if (existsMember != null) {
 			return ResultData.from("F-7", Ut.f("이미 사용 중인 아이디(%s)입니다", loginId));
 		}
-		
+
 		// 이름 + 이메일 중복체크
 		existsMember = getMemberByNameAndEmail(name, email);
-		
+
 		if (existsMember != null) {
 			return ResultData.from("F-8", Ut.f("이미 사용 중인 이름(%s)과 이메일(%s)입니다", loginId, email));
 		}
-		
+
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
-		
+
 		int id = memberRepository.getLastInsertId();
-		
+
 		return ResultData.from("S-1", "회원가입이 완료되었습니다", "id", id);
 	}
 
@@ -53,11 +56,19 @@ public class MemberService {
 		return memberRepository.getMemberById(id);
 	}
 
-	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNum,
-			String email) {
+	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		memberRepository.modify(id, loginPw, name, nickname, cellphoneNum, email);
-		
+
 		return ResultData.from("S-1", "회원정보가 수정되었습니다");
+	}
+
+	public String genMemberModifyAuthKey(int actorId) {
+		String memberModifyAuthKey = Ut.getTempPassword(10);
+		
+		attrService.setValue("member", actorId, "extra", "memberModifyAuthKey", memberModifyAuthKey,
+				Ut.getDateStrLater(60 * 5));
+		
+		return memberModifyAuthKey;
 	}
 
 }
