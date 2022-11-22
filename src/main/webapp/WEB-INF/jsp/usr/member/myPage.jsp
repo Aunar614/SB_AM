@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="MYPAGE" />
 <%@ include file="../common/head.jspf"%>
+<%@ page import="com.khg.exam.demo.util.Ut"%>
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
@@ -39,7 +40,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<a class="btn btn-active btn-ghost" href="../member/checkPassword">회원정보 수정</a>
+							<a class="btn btn-active btn-ghost" href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify') }">회원정보 수정</a>
 						</td>
 					</tr>
 				</tbody>
