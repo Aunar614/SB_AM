@@ -1,6 +1,5 @@
 package com.khg.exam.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.khg.exam.demo.repository.MemberRepository;
@@ -64,11 +63,22 @@ public class MemberService {
 
 	public String genMemberModifyAuthKey(int actorId) {
 		String memberModifyAuthKey = Ut.getTempPassword(10);
-		
+
 		attrService.setValue("member", actorId, "extra", "memberModifyAuthKey", memberModifyAuthKey,
 				Ut.getDateStrLater(60 * 5));
-		
+
 		return memberModifyAuthKey;
+	}
+
+	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
+
+		String saved = attrService.getValue("member", actorId, "extra", "memberModifyAuthKey");
+		
+		if (!saved.equals(memberModifyAuthKey)) {
+			return ResultData.from("F-1", "일치하지 않거나 만료되었습니다");
+		}
+		
+		return ResultData.from("S-1", "정상 코드입니다");
 	}
 
 }
