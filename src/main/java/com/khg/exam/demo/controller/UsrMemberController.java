@@ -1,7 +1,5 @@
 package com.khg.exam.demo.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -114,6 +112,12 @@ public class UsrMemberController {
 		rq.logout();
 
 		return Ut.jsReplace("로그아웃 되었습니다", "/");
+	}
+	
+	@RequestMapping("usr/member/myPage")
+	public String showMyPage() {
+		
+		return "usr/member/myPage";
 	}
 
 }
