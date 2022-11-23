@@ -49,7 +49,6 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
 		
-		this.req.setAttribute("rq", this);
 	}
 
 	public void printHistoryBackJs(String msg) throws IOException {
@@ -117,8 +116,14 @@ public class Rq {
 		return Ut.getUriEncoded(getCurrentUri());
 	}
 
-	public void initOnBeforeActionInterceptor() {
+	public void runA() {
+		System.out.println("A 호출됨");
 		
+		runB();
+	}
+	
+	public void runB() {
+		System.out.println("B 호출됨");
 	}
 
 }
