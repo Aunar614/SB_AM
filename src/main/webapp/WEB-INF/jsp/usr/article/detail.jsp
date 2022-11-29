@@ -201,7 +201,7 @@
 		<c:if test="${rq.notLogined}">
 			<h1>
 				댓글 작성은 "
-				<a class="btn-text-link" href="/usr/member/login">로그인</a>
+				<a class="btn-text-link" href="${rq.loginUri }">로그인</a>
 				" 후 이용해주세요
 			</h1>
 		</c:if>

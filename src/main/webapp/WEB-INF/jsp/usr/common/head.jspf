@@ -52,21 +52,21 @@
 						<span>WRITE</span>
 					</a>
 				</li>
-				<c:if test="${!rq.isLogined()}">
+				<c:if test="${!rq.logined}">
 					<li class="hover:underline">
-						<a class="h-full flex items-center px-3" href="/usr/member/login">
+						<a class="h-full flex items-center px-3" href="${rq.loginUri }">
 							<span>LOGIN</span>
 						</a>
 					</li>
 				</c:if>
-				<c:if test="${rq.isLogined()}">
+				<c:if test="${rq.logined}">
 					<li class="hover:underline">
 						<a class="h-full flex items-center px-3" href="/usr/member/myPage">
 							<span>MYPAGE</span>
 						</a>
 					</li>
 				</c:if>
-				<c:if test="${rq.isLogined()}">
+				<c:if test="${rq.logined}">
 					<li class="hover:underline">
 						<a class="h-full flex items-center px-3" href="/usr/member/doLogout">
 							<span>LOGOUT</span>
