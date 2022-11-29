@@ -3,11 +3,11 @@ package com.khg.exam.demo.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khg.exam.demo.service.MemberService;
 import com.khg.exam.demo.util.Ut;
-import com.khg.exam.demo.vo.Article;
 import com.khg.exam.demo.vo.Member;
 import com.khg.exam.demo.vo.ResultData;
 import com.khg.exam.demo.vo.Rq;
@@ -72,7 +72,7 @@ public class UsrMemberController {
 
 	@RequestMapping("usr/member/doLogin")
 	@ResponseBody
-	public String doLogin(String loginId, String loginPw) {
+	public String doLogin(String loginId, String loginPw, @RequestParam(defaultValue = "/") String afterLoginUri) {
 
 		if (Ut.empty(loginId)) {
 			return Ut.jsHistoryBack("아이디를 입력해주세요");
@@ -94,7 +94,7 @@ public class UsrMemberController {
 
 		rq.login(member);
 
-		return Ut.jsReplace(Ut.f("%s님 환영합니다", member.getNickname()), "/");
+		return Ut.jsReplace(Ut.f("%s님 환영합니다", member.getNickname()), afterLoginUri);
 	}
 
 	@RequestMapping("usr/member/doLogout")
