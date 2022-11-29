@@ -130,18 +130,37 @@ public class Rq {
 		
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
+	
+	public String getLogoutUri() {
+		
+		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+	}
 
 	public String getAfterLoginUri() {
 		String requestUri = req.getRequestURI();
 		
+		// 로그인 후 다시 돌아가면 안되는 URL
 		switch(requestUri) {
 		case "/usr/member/login":
 		case "/usr/member/join":
 		case "/usr/member/findLoginId":
 		case "/usr/member/findLoginPw":
-			return Ut.getUriEncoded(paramMap.get("afterLoginUri"));
+			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
 		}
 		
+		return getEncodedCurrentUri();
+	}
+
+	public String getAfterLogoutUri() {
+		String requestUri = req.getRequestURI();
+		
+		// 로그아웃 후 다시 돌아가면 안되는 URL
+		switch(requestUri) {
+		case "/usr/article/write":
+		case "/usr/article/modify":
+			
+			return "/"; 
+		}
 		return getEncodedCurrentUri();
 	}
 
