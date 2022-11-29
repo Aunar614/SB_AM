@@ -13,7 +13,7 @@
 			<div class="flex-grow"></div>
 			<form class="flex">
 				<input type="hidden" name="boardId" value=${param.boardId } />
-			
+
 				<select data-value="${param.searchKeywordTypeCode }" name="searchKeywordTypeCode" class="select select-bordered">
 					<option disabled="disabled">검색</option>
 					<option value="title">제목</option>
@@ -52,7 +52,8 @@
 							<td>${article.id }</td>
 							<td>${article.forPrintType1RegDate }</td>
 							<td>
-								<a class="hover:underline" href="../article/detail?id=${article.id }"> ${article.title } </a>
+								<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">
+									${article.title } </a>
 							</td>
 							<td>${article.extra__writerName }</td>
 							<td>${article.hitCount }</td>

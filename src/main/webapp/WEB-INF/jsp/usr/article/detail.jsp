@@ -125,7 +125,12 @@
 
 		<div class="btns">
 			<div class="mt-2 flex justify-end">
-				<button class="btn btn-xs btn-primary ml-2" type="button" onclick="history.back();">뒤로가기</button>
+				<c:if test="${empty param.listUri}">
+					<button class="btn btn-xs btn-primary ml-2" type="button" onclick="history.back();">뒤로가기</button>
+				</c:if>
+				<c:if test="${not empty param.listUri}">
+					<a class="btn btn-xs btn-primary ml-2" href="${param.listUri }">뒤로가기</a>
+				</c:if>
 				<c:if test="${article.extra__actorCanModify }">
 					<a class="btn btn-xs btn-primary ml-2" href="../article/modify?id=${article.id }">수정</a>
 				</c:if>
