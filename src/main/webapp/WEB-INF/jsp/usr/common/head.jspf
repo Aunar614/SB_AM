@@ -54,7 +54,7 @@
 				</li>
 				<c:if test="${!rq.logined}">
 					<li class="hover:underline">
-						<a class="h-full flex items-center px-3" href="/usr/member/join">
+						<a class="h-full flex items-center px-3" href="${rq.joinUri }">
 							<span>JOIN</span>
 						</a>
 					</li>
