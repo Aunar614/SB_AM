@@ -180,6 +180,7 @@
 				onsubmit="ReplyWrite__submitForm(this); return false;">
 				<input type="hidden" name="relTypeCode" value="article" />
 				<input type="hidden" name="relId" value="${article.id }" />
+				<input type="hidden" name="replaceUri" value="${rq.currentUri }" />
 				<table class="table table-zebra w-full">
 					<colgroup>
 						<col width="200" />
@@ -247,11 +248,11 @@
 						<td class="text-left">${reply.getForPrintBody() }</td>
 						<td class="text-center">
 							<c:if test="${reply.extra__actorCanModify }">
-								<a class="btn btn-xs btn-ghost" href="../reply/modify?id=${reply.id }">수정</a>
+								<a class="btn btn-xs btn-ghost" href="../reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri }">수정</a>
 								<span> / </span>
 							</c:if>
 							<c:if test="${reply.extra__actorCanDelete }">
-								<a class="btn btn-xs btn-ghost" href="../reply/doDelete?id=${reply.id }"
+								<a class="btn btn-xs btn-ghost" href="../reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri }"
 									onclick="if(comfirm('삭제 하시겠습니까?') == false) return false;">삭제</a>
 							</c:if>
 						</td>

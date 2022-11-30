@@ -29,6 +29,7 @@
 		<form class="table-box-type-1" method="POST" action="../reply/doModify"
 			onsubmit="ReplyModify__submit(this); return false">
 			<input type="hidden" name="id" value="${reply.id }" />
+			<input type="hidden" name="replaceUri" value="${param.replaceUri }" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
@@ -88,7 +89,7 @@
 		</form>
 
 		<div class="btns">
-			<button class="btn-text-link" type="button" onclick="history.back();">뒤로가기</button>
+			<a class="btn-text-link" href="${param.replaceUri }">뒤로가기</a>
 		</div>
 	</div>
 </section>
