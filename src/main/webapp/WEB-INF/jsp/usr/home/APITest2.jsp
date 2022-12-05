@@ -6,6 +6,19 @@
 <div class="flex justify-center">
 	<div id="map" style="width: 1500px; height: 600px;"></div>
 </div>
+
+<div class="flex justify-center">
+	<div class="msg-1"></div>
+</div>
+
+<div class="flex justify-center">
+	<div class="msg-2"></div>
+</div>
+
+<div class="flex justify-center mt-2">
+	<div style="background-color:pink; width:50px; height:50px;" onclick="removeText();"></div>
+</div>
+
 <p class="flex justify-center mt-2">
     <button class="mx-1" onclick="setCenter()">지도 중심좌표 이동시키기</button> 
     <button class="mx-1" onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button> 
@@ -30,6 +43,7 @@
 		Lolocation = data.body[0].longitude;
 		console.log(Lalocation);
 		console.log(Lolocation);
+		$('.msg-1').html('<div class="mt-3"> API 위도 : ' + data.body[0].latitude + '</div>');
 	}
 	
 	getData();
@@ -63,7 +77,8 @@
 	    console.log("위도 + " + Lalocation)
 	    console.log("경도 + " + Lolocation)
 	    var moveLatLon = new kakao.maps.LatLng(lat, lot);
-	    
+		$('.msg-2').html('<div class="mt-3"> Test 위도 : ' + lat + '</div>');
+		
 	    // 지도 중심을 부드럽게 이동시킵니다
 	    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
 	    map.panTo(moveLatLon);            
@@ -82,6 +97,10 @@
 
 	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
 	// marker.setMap(null); 
+	
+	function removeText() {
+		$('.msg-2').html('<div class="mt-3"> Test 위도 : </div>');
+	}
 </script>
 
 <%@ include file="../common/foot.jspf"%>
