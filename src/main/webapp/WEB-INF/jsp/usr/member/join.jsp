@@ -80,7 +80,7 @@
 
 	// 아이디 중복 체크
 	function checkLoginIdDup(el) {
-		$('.loginId-msg').empty();
+		$('.loginId-msg').html('<div class="mt-3"> checking </div>')
 		const form = $(el).closest('form').get(0);
 
 		if (form.loginId.value.length == 0) {
