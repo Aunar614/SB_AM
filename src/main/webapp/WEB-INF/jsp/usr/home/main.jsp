@@ -18,6 +18,10 @@
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi sapiente fugit inventore perferendis expedita
 		culpa officia eum minima molestias iste explicabo iusto dolores totam repellendus distinctio deleniti nesciunt. Minus
 		sed!
+		<div class="toggle-btn">
+			<div></div>
+			<div></div>
+		</div>
 		<button class="close-btn">close</button>
 	</div>
 </div>

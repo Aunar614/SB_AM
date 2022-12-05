@@ -11,7 +11,8 @@ $('select[data-value]').each(function(index, el) {
 	
 		
 });
-
+ 
+/* 팝업 열기 */
 $('.Popup').click(function(){
 //	$('.layer').show();
 //	$('.layer-bg').show();
@@ -19,6 +20,7 @@ $('.Popup').click(function(){
 	$('.layer-bg').css('display', 'block');
 })
 
+/* 팝업 닫기 버튼(close) */
 $('.close-btn').click(function(){
 //	$('.layer').hide();
 //	$('.layer-bg').hide();
@@ -32,3 +34,8 @@ $('.layer-bg').click(function(){
 	$('.layer').css('display', 'none');
 	$('.layer-bg').css('display', 'none');
 })
+
+/* 팝업 닫기 버튼(x) */
+$('.toggle-btn').click(function() {
+	$(this).toggleClass('active');
+});
