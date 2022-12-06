@@ -20,6 +20,8 @@ import lombok.Getter;
 @Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class Rq {
 	@Getter
+	private boolean isAjax;
+	@Getter
 	private boolean isLogined;
 	@Getter
 	private int loginedMemberId;
@@ -34,7 +36,7 @@ public class Rq {
 	public Rq(HttpServletRequest req, HttpServletResponse resp, MemberService memberService) {
 		this.req = req;
 		this.resp = resp;
-		
+
 		paramMap = Ut.getParamMap(req);
 
 		this.session = req.getSession();
@@ -42,7 +44,7 @@ public class Rq {
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 		Member loginedMember = null;
-		
+
 		if (session.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
 			loginedMemberId = (int) session.getAttribute("loginedMemberId");
@@ -52,7 +54,26 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
+
+		String requestUri = req.getRequestURI();
+
+		boolean isAjax = requestUri.endsWith("Ajax");
+
+		if (isAjax == false) {
+			if (paramMap.containsKey("ajax") && paramMap.get("ajax").equals("Y")) {
+				isAjax = true;
+			} else if (paramMap.containsKey("isAjax") && paramMap.get("isAjax").equals("Y")) {
+				isAjax = true;
+			}
+		}
 		
+		if (isAjax == false) {
+			if(requestUri.contains("/get")) {
+				isAjax = true;
+			}
+		}
+		
+		this.isAjax = isAjax;
 	}
 
 	public void printHistoryBackJs(String msg) throws IOException {
@@ -90,10 +111,10 @@ public class Rq {
 	public String jsHistoryBackOnView(String msg) {
 		req.setAttribute("msg", msg);
 		req.setAttribute("historyBack", true);
-		
+
 		return "usr/common/js";
 	}
-	
+
 	public String jsHistoryBackOnView(String resultCode, String msg) {
 		req.setAttribute("msg", String.format("[%s] %s", resultCode, msg));
 		req.setAttribute("historyBack", true);
@@ -106,83 +127,83 @@ public class Rq {
 	}
 
 	public String jsHistoryBack(String msg) {
-		
+
 		return Ut.jsHistoryBack(msg);
 	}
 
 	public String jsReplace(String msg, String uri) {
-		
+
 		return Ut.jsReplace(msg, uri);
 	}
-	
+
 	public String getCurrentUri() {
 		String currentUri = req.getRequestURI();
 		String queryString = req.getQueryString();
-		
-		if(queryString != null && queryString.length() > 0) {
+
+		if (queryString != null && queryString.length() > 0) {
 			currentUri += "?" + queryString;
 		}
-		
+
 		return currentUri;
 	}
-	
+
 	public String getEncodedCurrentUri() {
-		
+
 		return Ut.getUriEncoded(getCurrentUri());
 	}
 
 	public void printReplaceJs(String msg, String url) {
 		resp.setContentType("text/html; charset=UTF-8");
-		
+
 		print(Ut.jsReplace(msg, url));
 	}
-	
+
 	public String getJoinUri() {
 		return "../member/join?afterLoginUri=" + getAfterLoginUri();
 	}
-	
+
 	public String getLoginUri() {
-		
+
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
-	
+
 	public String getLogoutUri() {
-		
+
 		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 
 	public String getAfterLoginUri() {
 		String requestUri = req.getRequestURI();
-		
+
 		// 로그인 후 다시 돌아가면 안되는 URL
-		switch(requestUri) {
+		switch (requestUri) {
 		case "/usr/member/login":
 		case "/usr/member/join":
 		case "/usr/member/findLoginId":
 		case "/usr/member/findLoginPw":
 			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
 		}
-		
+
 		return getEncodedCurrentUri();
 	}
 
 	public String getAfterLogoutUri() {
 		String requestUri = req.getRequestURI();
-		
+
 		// 로그아웃 후 다시 돌아가면 안되는 URL
-		switch(requestUri) {
+		switch (requestUri) {
 		case "/usr/article/write":
 		case "/usr/article/modify":
-			
-			return "/"; 
+
+			return "/";
 		}
 		return getEncodedCurrentUri();
 	}
-	
+
 	public String getArticleDetailUriFromArticleList(Article article) {
-		
+
 		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
-		
+
 	}
 
 }
