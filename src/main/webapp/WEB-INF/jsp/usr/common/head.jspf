@@ -59,6 +59,11 @@
 						</a>
 					</li>
 				</c:if>
+				<li class="hover:underline">
+					<a class="h-full flex items-center px-3" href="/usr/home/APITest2">
+						<span>API</span>
+					</a>
+				</li>
 				<c:if test="${!rq.logined}">
 					<li class="hover:underline">
 						<a class="h-full flex items-center px-3" href="${rq.loginUri }">
@@ -66,13 +71,6 @@
 						</a>
 					</li>
 				</c:if>
-
-				<li class="hover:underline">
-					<a class="h-full flex items-center px-3" href="/usr/home/APITest2">
-						<span>API</span>
-					</a>
-				</li>
-
 				<c:if test="${rq.logined}">
 					<li class="hover:underline">
 						<a class="h-full flex items-center px-3" href="/usr/member/myPage">
