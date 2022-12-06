@@ -92,8 +92,8 @@
 		    });
 		</script>
 		
-		<div>
-			<button class="btn btn-error btn-delete-selected-members">선택삭제</button>
+		<div class="flex justify-end">
+			<button class="btn btn-sm btn-error btn-delete-selected-members mt-3">선택삭제</button>
 		</div>
 
 		<form hidden method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">
