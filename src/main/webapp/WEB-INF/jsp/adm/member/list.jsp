@@ -58,7 +58,7 @@
 					</tr>
 				</thead>
 
-				<tbody>
+				<tbody class="text-base">
 					<c:forEach var="member" items="${members }">
 						<tr class="hover">
 							<th>
@@ -91,13 +91,15 @@
 		      
 		    });
 		</script>
-		
+
 		<div class="flex justify-end">
 			<button class="btn btn-sm btn-error btn-delete-selected-members mt-3">선택삭제</button>
 		</div>
 
 		<form hidden method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">
 			<input type="hidden" name="ids" value="" />
+			<input type="hidden" name="replaceUri" value="${rq.currentUri }" />
+			
 		</form>
 
 		<script>
