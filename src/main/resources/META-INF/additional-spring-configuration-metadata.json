@@ -28,5 +28,10 @@
     "name": "custom.siteName",
     "type": "java.lang.String",
     "description": "A description for 'custom.siteName'"
+  },
+  {
+    "name": "custom.genFileDirPath",
+    "type": "java.lang.String",
+    "description": "A description for 'custom.genFileDirPath'"
   }
 ]}

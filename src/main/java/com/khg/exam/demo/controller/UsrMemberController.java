@@ -1,11 +1,16 @@
 package com.khg.exam.demo.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
+import com.khg.exam.demo.service.GenFileService;
 import com.khg.exam.demo.service.MemberService;
 import com.khg.exam.demo.util.Ut;
 import com.khg.exam.demo.vo.Member;
@@ -19,11 +24,13 @@ public class UsrMemberController {
 	private MemberService memberService;
 	@Autowired
 	private Rq rq;
+	@Autowired
+	private GenFileService genFileService;
 
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
-			String email, @RequestParam(defaultValue = "/") String afterLoginUri) {
+			String email, @RequestParam(defaultValue = "/") String afterLoginUri, MultipartRequest multipartRequest) {
 
 		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 
@@ -31,8 +38,20 @@ public class UsrMemberController {
 			return rq.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
 		}
 
+		int newMemberId = (int) joinRd.getBody().get("id");
+		
 		String afterJoinUri = "../member/login?afterLoginUri=" + Ut.getUriEncoded(afterLoginUri);
 
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+
+		for (String fileInputName : fileMap.keySet()) {
+			MultipartFile multipartFile = fileMap.get(fileInputName);
+
+			if (multipartFile.isEmpty() == false) {
+				genFileService.save(multipartFile, newMemberId);
+			}
+		}
+		
 		return rq.jsReplace("회원가입이 완료되었습니다. 로그인 후 이용해주세요", afterJoinUri);
 	}
 

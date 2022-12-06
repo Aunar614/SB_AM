@@ -90,8 +90,8 @@
 			validLoginId = '';
 			return;
 		}
-		
-		if (validLoginId == form.loginId.value){
+
+		if (validLoginId == form.loginId.value) {
 			return;
 		}
 
@@ -100,25 +100,26 @@
 			loginId : form.loginId.value
 		}, function(data) {
 			$('.loginId-msg').html('<div class="mt-3">' + data.msg + '</div>')
-			if (data.success){
+			if (data.success) {
 				validLoginId = data.data1;
-			}else {
+			} else {
 				validLoginId = '';
 			}
-			
-			if (data.resultCode == 'F-B'){
+
+			if (data.resultCode == 'F-B') {
 				alert(data.msg);
 				location.replace('/');
 			}
 		}, 'json');
 	}
-	
+
 	const checkLoginIdDupDebounced = _.debounce(checkLoginIdDup, 500);
 </script>
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+		<form class="table-box-type-1" method="POST" enctype="multipart/form-data" action="../member/doJoin"
+			onsubmit="submitJoinForm(this); return false;">
 			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
 			<table class="table table-zebra w-full">
 				<colgroup>
@@ -137,8 +138,7 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input class="input input-bordered w-full max-w-xs" type="password" name="loginPw"
-								placeholder="비밀번호를 입력해주세요" />
+							<input class="input input-bordered w-full max-w-xs" type="password" name="loginPw" placeholder="비밀번호를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
@@ -158,6 +158,12 @@
 						<th>닉네임</th>
 						<td>
 							<input name="nickname" class="w-full input input-bordered  max-w-xs" placeholder="닉네임을 입력해주세요" />
+						</td>
+					</tr>
+					<tr>
+						<th>프로필 이미지</th>
+						<td>
+							<input type="file" name="profileImg" placeholder="프로필 이미지를 선택해주세요" />
 						</td>
 					</tr>
 					<tr>
