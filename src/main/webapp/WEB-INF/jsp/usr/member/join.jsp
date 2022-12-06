@@ -137,7 +137,7 @@
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input class="input input-bordered w-full max-w-xs rounded" type="password" name="loginPw"
+							<input class="input input-bordered w-full max-w-xs" type="password" name="loginPw"
 								placeholder="비밀번호를 입력해주세요" />
 						</td>
 					</tr>
