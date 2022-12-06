@@ -1,19 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="FIND LOGINID" />
+<c:set var="pageTitle" value="FIND LOGINPW" />
 <%@ include file="../common/head.jspf"%>
 
 <script>
-	let MemberFindLoginId__submitDone = false;
-	function MemberFindLoginId__submit(form) {
-		if (MemberFindLoginId__submitDone) {
+	let MemberFindLoginPw__submitDone = false;
+	function MemberFindLoginPw__submit(form) {
+		if (MemberFindLoginPw__submitDone) {
 			alert('처리중입니다');
 			return;
 		}
-		form.name.value = form.name.value.trim();
-		if (form.name.value.length == 0) {
-			alert('이름을 입력해주세요');
-			form.name.focus();
+		form.loginId.value = form.loginId.value.trim();
+		if (form.loginId.value.length == 0) {
+			alert('아이디를 입력해주세요');
+			form.loginId.focus();
 			return;
 		}
 		form.email.value = form.email.value.trim();
@@ -22,16 +22,16 @@
 			form.email.focus();
 			return;
 		}
-		MemberFindLoginId__submitDone = true;
+		MemberFindLoginPw__submitDone = true;
 		form.submit();
 	}
 </script>
 
 <section class="mt-8">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../member/doFindLoginId"
-			onsubmit="MemberFindLoginId__submit(this) ; return false;">
-			<input type="hidden" name="afterFindLoginIdUri" value="${param.afterFindLoginIdUri}" />
+		<form class="table-box-type-1" method="POST" action="../member/doFindLoginPw"
+			onsubmit="MemberFindLoginPw__submit(this) ; return false;">
+			<input type="hidden" name="afterFindLoginPwUri" value="${param.afterFindLoginPwUri}" />
 			<table>
 				<colgroup>
 					<col width="200" />
@@ -39,9 +39,9 @@
 
 				<tbody>
 					<tr>
-						<th>이름</th>
+						<th>아이디</th>
 						<td>
-							<input class="w-full input input-bordered  max-w-xs" name="name" type="text" placeholder="이름을 입력해주세요" />
+							<input class="w-full input input-bordered  max-w-xs" name="loginId" type="text" placeholder="아이디를 입력해주세요" />
 						</td>
 					</tr>
 					<tr>
@@ -53,9 +53,9 @@
 					<tr>
 						<th></th>
 						<td>
-							<button class="mx-2" type="submit">아이디 찾기</button>
+							<a href="/usr/member/findLoginId" class="mx-2" type="submit">아이디 찾기</a>
 							<span>/</span>
-							<a class="mx-2" href="/usr/member/findLoginPw" type="submit">비밀번호 찾기</a>
+							<button class="mx-2" type="submit">비밀번호 찾기</button>
 						</td>
 					</tr>
 					<tr>
