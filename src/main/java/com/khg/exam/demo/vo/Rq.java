@@ -66,13 +66,13 @@ public class Rq {
 				isAjax = true;
 			}
 		}
-		
+
 		if (isAjax == false) {
-			if(requestUri.contains("/get")) {
+			if (requestUri.contains("/get")) {
 				isAjax = true;
 			}
 		}
-		
+
 		this.isAjax = isAjax;
 	}
 
@@ -166,7 +166,7 @@ public class Rq {
 
 		return "usr/member/login?afterLoginUri=" + getAfterLoginUri();
 	}
-	
+
 	public String getFindLoginIdUri() {
 		return "usr/member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
 	}
@@ -184,8 +184,20 @@ public class Rq {
 	}
 
 	public String getLogoutUri() {
+		String requestUri = req.getRequestURI();
 
-		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+		System.err.println(requestUri);
+//		switch(requestUri) {
+//		case "/usr/article/write":
+//		case "/usr/article/modify":
+//			return "../member/doLogout?afterLogoutUri=" + "/";
+//		}
+
+		if (requestUri.contains("adm")) {
+			return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
+		}
+		
+		return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 
 	public String getAfterLoginUri() {
@@ -221,7 +233,7 @@ public class Rq {
 		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
 
 	}
-	
+
 	public boolean isAdmin() {
 		if (isLogined == false) {
 			return false;
